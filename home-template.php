@@ -13,7 +13,7 @@ $site_settings = get_option( 'ecap_settings' );
 	<div class="man_wrapper_bg">
 		<section>
 			<div class="home_header">
-				<img src="<?php echo get_template_directory_uri().'/assets/images/unnamed.png'?>">
+				<img src="<?php echo $site_settings['header_img'];?>">
 			</div>
 		</section>
 		<section class="container">
@@ -193,15 +193,10 @@ $site_settings = get_option( 'ecap_settings' );
 												<div class="form-floating">
 													<select class="form-select shadow-sm" name="pickupArea" id="pickupArea" onchange="onSelectChange(this)">
 														<option value="" disabled selected>Pickup Area</option>
-														<option value="Banani">Banani</option>
-														<option value="Dhanmond">Dhanmond</option>
-														<option value="Gulshan">Gulshan</option>
-														<option value="Mirpur">Mirpur</option>
-														<option value="Moghbazar">Moghbazar</option>
-														<option value="Motijheel">Motijheel</option>
-														<option value="Rampura">Rampura</option>
-														<option value="Uttara">Uttara</option>
-														<option value="Zatrabari">Zatrabari</option>
+														<?php if (!empty($site_settings['pickupArea'])) {
+														foreach ($site_settings['pickupArea'] as $area) {
+															echo "<option value=".$area['areaName'].">".$area['areaName']."</option>";
+														}}?>
 													</select>
 													<label for="pickupArea">Pickup Area</label>
 												</div>

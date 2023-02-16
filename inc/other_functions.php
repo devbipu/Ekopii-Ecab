@@ -63,4 +63,3 @@ function custom_post_type() {
 
   
 add_action( 'init', 'custom_post_type', 0 );
-

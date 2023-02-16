@@ -178,8 +178,11 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 
 
 
-require get_template_directory().'/inc/other_functions.php';
 
 
 require_once get_theme_file_path() .'/inc/codestar-framework/codestar-framework.php';
-require get_theme_file_path().'/inc/custom-codestar.php';
+require_once get_theme_file_path().'/inc/custom-codestar.php';
+require_once get_theme_file_path().'/inc/metabox/init.php';
+require_once get_theme_file_path().'/inc/metabox/functions.php';
+
+require_once get_template_directory().'/inc/other_functions.php';
