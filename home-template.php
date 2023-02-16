@@ -3,7 +3,12 @@
 	Template Name: Form page
 	Version: 1.0
 */
-get_header(); ?>
+get_header(); 
+
+$site_settings = get_option( 'ecap_settings' ); 
+
+?>
+
 <main class="container">
 	<div class="man_wrapper_bg">
 		<section>
@@ -19,30 +24,83 @@ get_header(); ?>
 							<div class="left_sidebar_row">
 								<h4 class="section_title">Support</h4>
 								<div class="my-4">
-									<p><b>IT:</b> 01755559888</p>
-									<p><b>Event Inchage:</b> Mr. Arnob, 017555596888</p>
-									<p><b>Gift Incharge:</b> Mr. Hasan</p>
-									<p><b>Food:</b> Mr. Rakib</p>
+									<p>
+										<b>IT: </b> 
+										<span>
+											<?php echo $site_settings['support_it_incharge_name'] ?>
+										</span>
+										<span>
+											<?php echo $site_settings['support_it_incharge_phone'] ?>
+										</span>
+									</p>
+									<p>
+										<b>Event Inchage:</b>
+										<span>
+											<?php echo $site_settings['support_event_incharge_name'] ?>
+										</span>
+										<span>
+											<?php echo $site_settings['support_event_incharge_phone'] ?>
+										</span>
+									</p>
+									<p>
+										<b>Gift Incharge:</b>
+										<span>
+											<?php echo $site_settings['support_gift_incharge_name'] ?>
+										</span>
+										<span>
+											<?php echo $site_settings['support_gift_incharge_phone'] ?>
+										</span>
+									</p>
+									<p>
+										<b>Food:</b>
+										<span>
+											<?php echo $site_settings['support_food_incharge_name'] ?>
+										</span>
+										<span>
+											<?php echo $site_settings['support_food_incharge_phone'] ?>
+										</span>
+									</p>
 								</div>
 							</div>
 							<div class="left_sidebar_row">
 								<h4 class="section_title">Organized by</h4>
 								<div class="my-4">
-									<p><b>Name: </b>eCab LTD</p>
-									<p><b>Phone: </b><a href="tel:01844-696009">01844-696009</a></p>
-									<p><b>Email: </b><a href="mailto:info@e-cab.net">info@e-cab.net</a></p>
-									<p><b>Address: </b> House: 04, Road:23/a, Block: B, Banani, Dhaka 1213 Dhaka, Dhaka Division, Bangladesh</p>
+									<p>
+										<b>Name: </b>
+										<span>
+											<?php echo $site_settings['organization_name'] ?>
+										</span>
+									</p>
+									<p>
+										<b>Phone: </b>
+										<a href="tel:<?php echo $site_settings['organization_phone'] ?>">
+											<?php echo $site_settings['organization_phone'] ?>
+										</a>
+									</p>
+									<p>
+										<b>Email: </b>
+										<a href="mailto:<?php echo $site_settings['organization_email'] ?>">
+											<?php echo $site_settings['organization_email'] ?>
+										</a>
+									</p>
+									<p>
+										<b>Address: </b> 
+										<?php echo $site_settings['organization_address'] ?>
+									</p>
 								</div>
 							</div>
 							<div class="left_sidebar_row">
 								<h4 class="section_title">Member affains standing committee</h4>
 								<div class="my-4">
-									<ul>
-										<li>Mr. Xyz</li>
-										<li>Mr. Xyz</li>
-										<li>Mr. Xyz</li>
-										<li>Mr. Xyz</li>
-									</ul>
+									
+									<?php
+										foreach($site_settings['committee_members'] as $member ): 
+									?>
+									<div class="avt_row">
+										<img src="<?php echo $member['member_avatar']['url'] ?>" width="50" alt="avt img">
+										<h6><?php echo $member['member_name']?></h6>
+									</div>
+								<?php endforeach?>
 								</div>
 							</div>
 							<div class="left_sidebar_row">
@@ -62,7 +120,7 @@ get_header(); ?>
 										<div>
 											<div class="form_row">
 												<div class="form-floating">
-													<input type="text" class="form-control" name="memberId" id="memberID" placeholder="Member ID" value="Member ID">
+													<input type="text" class="form-control" name="memberId" id="memberID" placeholder="Member ID">
 													<label for="memberID">Member ID</label>
 												</div>
 											</div>
@@ -71,27 +129,40 @@ get_header(); ?>
 													<input type="text" class="form-control" name="name" id="name" placeholder="Name">
 													<label for="memberID">Name</label>
 												</div>
-												<div class="d-flex gap-3 justify-content-between">
-													<div class="form-floating w-50">
-														<select class="form-select" id="personType"onchange="onSelectChange(this)">
-															<option value="Single">Single</option>
-															<option value="Family">Family</option>
-														</select>
-														<label for="personType">Person Type</label>
-													</div>
-													<div class="form-floating w-50">
-														<select class="form-select" id="kidsType" onchange="onSelectChange(this)">
-															<option value="No Kids" selected>No Kids</option>
-															<option value="With Kids">With Kids</option>
-														</select>
-														<label for="kidsType">Kids type</label>
-													</div>
+											</div>
+
+
+
+											<div class="form_row border-1">
+												<div class="form-floating mb-2">
+													<select class="form-select" id="personType"onchange="onSelectChange(this)">
+														<option value="Single">Single</option>
+														<option value="Family">Family</option>
+													</select>
+													<label for="personType">Person Type</label>
+												</div>
+												<div id="morePersonWrap" class="addMoreFiledForm">
+
+												</div>
+											</div>
+
+
+
+											<div class="form_row">
+												<div class="form-floating mb-2">
+													<select class="form-select" id="kidsType" onchange="onSelectChange(this)">
+														<option value="No Kids" selected>No Kids</option>
+														<option value="With Kids">With Kids</option>
+													</select>
+													<label for="kidsType">Kids type</label>
+												</div>
+												<div id="addMoreKidsWrap" class="addMoreFiledForm">
+													
 												</div>
 											</div>
 											
-											<div class="form_row" id="addingWrapper">
-												
-											</div>
+											
+											
 
 
 											<div class="form_row">
@@ -137,7 +208,7 @@ get_header(); ?>
 											</div>
 											<div class="form_row">
 												<div class="form-floating">
-													<input type="number" class="form-control" name="regFee" id="regFee" placeholder="Registration Fee">
+													<input type="number" class="form-control" name="regFee" id="regFee" value="1500" placeholder="Registration Fee">
 													<label for="nid">Registration Fee</label>
 												</div>
 											</div>
@@ -156,95 +227,63 @@ get_header(); ?>
 					<div class="col-md-3">
 						<div class="col-md-12 right_sidebar">
 							<div class="sponsore_wrap">
-								<h4 class="section_title">Platinum Sponsord</h4>
+								<h4 class="section_title">Platinum Sponsored</h4>
 								<div class="mt-4">
+									<?php
+										if ($site_settings['platinum_sponsored']) :
+										foreach($site_settings['platinum_sponsored'] as $platinum_logo ): 
+									?>
 									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Suzuki.png'?>" alt="Trulli" style="width:100%">
+										<img src="<?php echo $platinum_logo['logo']['url']?>" alt="Trulli" style="width:100%">
 									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Trivago.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Westin.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Yamaha.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Amazon-1.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Upwork.png'?>" alt="Trulli" style="width:100%">
-									</figure>
+								<?php endforeach;
+									endif;
+								?>
 								</div>
 							</div>
 							<div class="sponsore_wrap">
-								<h4 class="section_title">Gold Sponsord</h4>
+								<h4 class="section_title">Gold Sponsored</h4>
 								<div class="mt-4">
+									<?php
+										if ($site_settings['gold_sponsored']) :
+										foreach($site_settings['gold_sponsored'] as $gold_logo ): 
+									?>
 									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Suzuki.png'?>" alt="Trulli" style="width:100%">
+										<img src="<?php echo $gold_logo['logo']['url']?>" alt="Trulli" style="width:100%">
 									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Trivago.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Discover.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Yamaha.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Amazon-1.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Westin.png'?>" alt="Trulli" style="width:100%">
-									</figure>
+								<?php endforeach;
+									endif;
+								?>
 								</div>
 							</div>
 							<div class="sponsore_wrap">
-								<h4 class="section_title">Sliver Sponsord</h4>
+								<h4 class="section_title">Sliver Sponsored</h4>
 								<div class="mt-4">
+									<?php
+										if ($site_settings['silver_sponsored']) :
+										foreach($site_settings['silver_sponsored'] as $silver_logo ): 
+									?>
 									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Suzuki.png'?>" alt="Trulli" style="width:100%">
+										<img src="<?php echo $silver_logo['logo']['url']?>" alt="Trulli" style="width:100%">
 									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Trivago.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Westin.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Yamaha.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Amazon-1.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Upwork.png'?>" alt="Trulli" style="width:100%">
-									</figure>
+								<?php endforeach;
+									endif;
+								?>
 								</div>
 							</div>
 							<div class="sponsore_wrap">
 								<h4 class="section_title">Partnars</h4>
 								<div class="mt-4">
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Airbnb.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Discover.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Westin.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Trivago.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Amazon-1.png'?>" alt="Trulli" style="width:100%">
-									</figure>
-									<figure>
-										<img src="<?php echo get_template_directory_uri().'/assets/images/Upwork.png'?>" alt="Trulli" style="width:100%">
-									</figure>
+									<?php
+										if ($site_settings['partners_logos']) :
+										foreach($site_settings['partners_logos'] as $partners_logo ): 
+									?>
+										<figure>
+											<img src="<?php echo $partners_logo['logo']['url']?>" alt="Trulli" style="width:100%">
+										</figure>
+									<?php endforeach;
+										endif;
+									?>
 								</div>
 							</div>
 						</div>
@@ -255,17 +294,5 @@ get_header(); ?>
 	</div>
 </main>
 
-<script type="text/javascript">
-	document.querySelector('#registrationForm').addEventListener('reset', () => {
-		document.querySelectorAll('select').forEach((el) => {
-			if (el.classList.contains('select_color')) {
-				el.classList.remove('select_color');
-			}
-		})
-	})
-	function onSelectChange(el) {
-		el.classList.add('select_color');
-	}
-</script>
 <?php
 get_footer();
